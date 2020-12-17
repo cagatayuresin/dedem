@@ -2,9 +2,7 @@
 
 Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyonlu bir bottur.
 
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+## Komutlar
 
 ```diff
 !selam
@@ -40,3 +38,6 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 	dilek, öneri, şikayet kutusu (sadece curesin görür)
 !hakkında
 ```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
