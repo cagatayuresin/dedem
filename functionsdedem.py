@@ -1,7 +1,6 @@
 import datetime
 import re
 
-
 def kutu(name, servername, gonderimetni):
     f = open("Others/posta.txt", "a")
     gonderi = datetime.datetime.now().strftime("\n\n%d-%m-%Y %H:%M:%S ") + servername + " " + name + "\n" + gonderimetni
@@ -9,11 +8,9 @@ def kutu(name, servername, gonderimetni):
     f.close()
     return True
 
-
 def listtostring(s):
     str1 = "\n:ballot_box_with_check: ".join(str(e) for e in s)
     return str1
-
 
 def log(name, command, servername, channelname):
     f = open("Others/logs.txt", "a")
@@ -23,7 +20,6 @@ def log(name, command, servername, channelname):
     f.write(defterlog)
     f.close()
     return defterlog
-
 
 def donusturucu(isim):
     isim = str(isim)
@@ -36,7 +32,6 @@ def donusturucu(isim):
         return isim
     else:
         return "ü"
-
 
 def sansur(kelime):
     sonuc = ""

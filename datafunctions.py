@@ -17,7 +17,6 @@ movie_country = moviesdata["country"]
 #movie_description = moviesdata["description"]
 movie_year = moviesdata["year"]
 
-
 def random_rating_checker(down, up):
     kontrol = False
     up = float(up)
@@ -41,7 +40,6 @@ def random_rating_checker(down, up):
             else:
                 continue
 
-
 def taking_movie_langs(i):
     if movie_lang[i] is None:
         return ["None"]
@@ -55,11 +53,9 @@ def taking_movie_langs(i):
         else:
             return ["None"]
 
-
 def getting_title(i):
     title = str(original_title[i])
     return title
-
 
 def getting_year(i):
     if movie_year[i] is not None:
@@ -69,7 +65,6 @@ def getting_year(i):
     else:
         year = "0"
         return year
-
 
 def year_checker(i, down):
     year = getting_year(i)

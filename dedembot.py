@@ -12,7 +12,6 @@ import time
 dedembotversion = config.the_bot_version
 client = commands.Bot(command_prefix="!", help_command=None)
 
-
 # mesaj yazarı kontrolcüsü
 def wrapper(context):
     def check_msg(message):
@@ -20,12 +19,10 @@ def wrapper(context):
 
     return check_msg
 
-
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="!yardım için"))
     print("Bot Hazır!")
-
 
 # noinspection PyBroadException
 @client.command()
@@ -158,7 +155,6 @@ async def adamasmaca(ctx):
             "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu, cikanlar,
                                                                             bildirim))
 
-
 @client.command(aliases=['Zar'])
 async def zar(ctx):
     komut = "zar"
@@ -187,7 +183,6 @@ async def zar(ctx):
     if yorum == "Hep-yek!":
         await ctx.send("https://cdn.discordapp.com/attachments/727053808030449677/786074019190276126/Yine_Hep_Yek.webm")
 
-
 @client.command(aliases=['selamın', 'hello', 'merhaba', 'hi'])
 async def selam(ctx):
     komut = "selam"
@@ -205,7 +200,6 @@ async def selam(ctx):
     else:
         await ctx.send("Aleyküm selam {} kardeş. :pray:".format(username))
 
-
 @client.command(aliases=['gonderimetni', 'post', 'gonder', 'gönder'])
 async def _posta(ctx, *, arg):
     komut = "gonderimetni"
@@ -217,7 +211,6 @@ async def _posta(ctx, *, arg):
     kutu(name, sunucu, arg)
     await ctx.message.delete()
     await ctx.send(username + " :wink:")
-
 
 @client.command(aliases=['TDK', 'Tdk', 'sözlük', 'sozluk', 'tdk'])
 async def _tdk(ctx, *, arg):
@@ -234,7 +227,6 @@ async def _tdk(ctx, *, arg):
         donut = "Sevgili " + username + " **" + arg + "** için ne yazık ki bir şey bulamadım.\n"
     await ctx.send(donut)
 
-
 @client.command()
 async def savundun(ctx):
     komut = "savundun"
@@ -245,7 +237,6 @@ async def savundun(ctx):
     await ctx.send("Savunmadım! :angry:")
     await ctx.send(":face_with_symbols_over_mouth:")
 
-
 @client.command()
 async def rohan(ctx):
     komut = "rohan"
@@ -255,7 +246,6 @@ async def rohan(ctx):
     log(name, komut, sunucu, kanaladi)
     await ctx.send("https://cdn.discordapp.com/attachments/693928663707549776/784838732120981504/Screenshot_724.png")
     await ctx.send("https://www.instagram.com/rohanturhan/")
-
 
 @client.command(aliases=['hakkında', 'about'])
 async def hakkinda(ctx):
@@ -268,7 +258,6 @@ async def hakkinda(ctx):
         "```2020 senesinin Aralık ayında soğuk bir karantina gecesi doğmuşum. Babamın adı curesin'dir; fakat henüz kendi başına üreyemediği için sağa sola sataşmaya, insanları irrite etmeye başlamıştı. İşsizliğin de verdiği boş beleş yaşantısına beni kodlayarak bir nebze renk katmak istedi.\n\nVersion: {} Release: 07/12/2020```".format(
             dedembotversion))
 
-
 @client.command()
 async def lyrics(ctx):
     komut = "lyrics"
@@ -279,7 +268,6 @@ async def lyrics(ctx):
     # await ctx.send("Getirdi mi bari doğru sözleri. Getirmediyse `!sozleri anahtar sözcük` ile bana aratabilirsin.")
     await ctx.send("Getirdi mi bari doğru sözleri?")
 
-
 @client.command()
 async def rank(ctx):
     komut = "rank"
@@ -288,7 +276,6 @@ async def rank(ctx):
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
     await ctx.send("mee6 söylemez ama benim gözümde 1 numarasın, güzel kardeşim")
-
 
 @client.command(aliases=['yardım', 'help'])
 async def yardim(ctx):
@@ -299,7 +286,6 @@ async def yardim(ctx):
     log(name, komut, sunucu, kanaladi)
     await ctx.send(
         "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!gonderimetni gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
-
 
 @client.command()
 async def puan(ctx, *, arg):
@@ -322,7 +308,6 @@ async def puan(ctx, *, arg):
     await ctx.send(resultx)
     await ctx.send(sonuc)
 
-
 @client.command(aliases=['İmdb'])
 async def imdb(ctx, *, arg):
     komut = "imdb"
@@ -343,7 +328,6 @@ async def imdb(ctx, *, arg):
     resultx = imdblinkleri(k, movies)
     await ctx.send(result)
     await ctx.send(resultx)
-
 
 @client.command(aliases=['Sence'])
 async def sence(ctx):
@@ -388,7 +372,6 @@ async def sence(ctx):
         cevap = random.choice(ball)
         await ctx.send(cevap)
 
-
 @client.command(aliases=['tureng', 'türeng', 'Türeng', 'Tureng'])
 async def _tureng(ctx, *, arg):
     komut = "türeng"
@@ -404,7 +387,6 @@ async def _tureng(ctx, *, arg):
     else:
         cevap = "Sevgili " + username + ",  __" + str(arg) + "__" + " çevirisi için hiçbişi çıkmadı." + sonuc
     await ctx.send(cevap)
-
 
 @client.command(aliases=['Engtur', 'Engtür', 'engtür', 'engtur'])
 async def _engtur(ctx, *, arg):
@@ -422,7 +404,6 @@ async def _engtur(ctx, *, arg):
         cevap = "Sevgili " + username + ",  __" + str(arg) + "__" + " çevirisi için hiçbişi çıkmadı." + sonuc
     await ctx.send(cevap)
 
-
 @client.command(aliases=['utube', 'yt', 'Youtube', 'video'])
 async def youtube(ctx, *, arg):
     komut = "youtube"
@@ -434,7 +415,6 @@ async def youtube(ctx, *, arg):
     sonuc = youtube_arat(arg)
     cevap = "Sevgili " + username + ",  __" + str(arg) + "__" + " için bu çıktı:\n" + sonuc
     await ctx.send(cevap)
-
 
 @client.command(aliases=['filmöner', 'film', 'öneri', 'öner'])
 async def filmoner(ctx):
@@ -451,7 +431,6 @@ async def filmoner(ctx):
     await ctx.send(cevap)
     await ctx.send(ozgurunonerisi)
 
-
 @client.command()
 async def iq40(ctx):
     komut = "iq40"
@@ -465,7 +444,6 @@ async def iq40(ctx):
     cevap = "Sevgili " + username + ", sana **" + oneri['title'] + "** filmini öneririm.\n" + linki
     await ctx.send(cevap)
 
-
 @client.command(aliases=['viki', 'wikipedi', 'vikipedi', 'wikipedia', 'Wiki'])
 async def wiki(ctx, *, arg):
     komut = "wiki"
@@ -478,6 +456,5 @@ async def wiki(ctx, *, arg):
     cevap = "Sevgili " + username + ", **" + arg + "** aramasının en yakın sonucu:\n" + cevaplist[0] + "\n" + cevaplist[
         1] + "\n" + cevaplist[2]
     await ctx.send(cevap)
-
 
 client.run(config.the_discord_token)

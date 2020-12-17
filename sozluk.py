@@ -1,5 +1,5 @@
 from tdk import tdk
-import requests
+#import requests
 from functionsdedem import *
 
 def sozlukte(s):
