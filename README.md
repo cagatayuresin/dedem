@@ -34,7 +34,7 @@ Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyo
 !tdk anahtar sözcük
 	sozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir
 !rohan
-!gonderimetni gönderi metni...
+!posta gönderi metni...
 	dilek, öneri, şikayet kutusu (sadece curesin görür)
 !hakkında
 ```
