@@ -159,7 +159,7 @@ async def adamasmaca(ctx):
                                                                             bildirim))
 
 
-@client.command(aliases=['Zar', ' zar'])
+@client.command(aliases=['Zar'])
 async def zar(ctx):
     komut = "zar"
     username = ctx.message.author.mention
@@ -219,7 +219,7 @@ async def _posta(ctx, *, arg):
     await ctx.send(username + " :wink:")
 
 
-@client.command(aliases=['TDK', 'Tdk', 'sözlük', 'sozluk'])
+@client.command(aliases=['TDK', 'Tdk', 'sözlük', 'sozluk', 'tdk'])
 async def _tdk(ctx, *, arg):
     komut = "tdk"
     username = ctx.message.author.mention
