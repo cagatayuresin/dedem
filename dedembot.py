@@ -205,9 +205,9 @@ async def selam(ctx):
         await ctx.send("Aleyküm selam {} kardeş. :pray:".format(username))
 
 
-@client.command(aliases=['posta', 'post', 'gonder', 'gönder'])
+@client.command(aliases=['gonderimetni', 'post', 'gonder', 'gönder'])
 async def _posta(ctx, *, arg):
-    komut = "posta"
+    komut = "gonderimetni"
     username = ctx.message.author.mention
     name = ctx.message.author.name
     sunucu = ctx.message.guild.name
@@ -297,7 +297,7 @@ async def yardim(ctx):
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
     await ctx.send(
-        "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!posta gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
+        "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!gonderimetni gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
 
 
 @client.command()

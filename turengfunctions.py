@@ -1,5 +1,4 @@
 from tureng import TurEng
-import requests
 tureng = TurEng()
 
 def ingilizceturkce(s):

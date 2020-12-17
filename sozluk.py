@@ -6,5 +6,5 @@ def sozlukte(s):
     s = s.lower()
     word = tdk.new_word(s)
     list = word.meaning()
-    sonuc = listToString(list)
+    sonuc = listtostring(list)
     return sonuc

@@ -1,37 +1,42 @@
 import datetime
-import ast
 import re
 
-def kutu(name, servername, posta):
-    f = open ("Others/posta.txt", "a")
-    gonderi = datetime.datetime.now().strftime("\n\n%d-%m-%Y %H:%M:%S ")+servername+" "+name+"\n"+posta
+
+def kutu(name, servername, gonderimetni):
+    f = open("Others/posta.txt", "a")
+    gonderi = datetime.datetime.now().strftime("\n\n%d-%m-%Y %H:%M:%S ") + servername + " " + name + "\n" + gonderimetni
     f.write(gonderi)
     f.close()
     return True
 
-def listToString(s):
-	str1 = "\n:ballot_box_with_check: ".join(str(e) for e in s)
-	return str1
+
+def listtostring(s):
+    str1 = "\n:ballot_box_with_check: ".join(str(e) for e in s)
+    return str1
+
 
 def log(name, command, servername, channelname):
-    f = open ("Others/logs.txt", "a")
-    log = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S\t")+servername+"\t"+channelname+"\t"+name+"\t"+command+"\n"
-    print(log)
-    f.write(log)
+    f = open("Others/logs.txt", "a")
+    defterlog = datetime.datetime.now().strftime(
+        "%d-%m-%Y %H:%M:%S\t") + servername + "\t" + channelname + "\t" + name + "\t" + command + "\n"
+    print(defterlog)
+    f.write(defterlog)
     f.close()
-    return log
+    return defterlog
+
 
 def donusturucu(isim):
     isim = str(isim)
     isim = isim.lower()
     degistir = str.maketrans("çğıöşüéä", "cgiosuea")
     isim = isim.translate(degistir)
-    isim = re.sub(' +', ' ',isim)
+    isim = re.sub(' +', ' ', isim)
     isim = isim.translate({ord(i): None for i in ".,:;-·''[](){}%*=&$#"})
-    if isim != None:
+    if isim is not None:
         return isim
     else:
         return "ü"
+
 
 def sansur(kelime):
     sonuc = ""
