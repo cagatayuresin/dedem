@@ -7,6 +7,7 @@ from youtubearama import *
 from wikipediafunctions import *
 from turengfunctions import *
 from datafunctions import *
+import time
 
 dedembotversion = config.the_bot_version
 client = commands.Bot(command_prefix="!", help_command=None)
