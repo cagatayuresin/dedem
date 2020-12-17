@@ -42,7 +42,7 @@ async def adamasmaca(ctx):
     # filmadi = top250random()
     kontrol2 = False
     while not kontrol2:
-        filmid = random_rating_checker(7.8, 10)
+        filmid = random_rating_checker(8.1, 10)
         langs = taking_movie_langs(filmid)
         yearchecker = year_checker(filmid, 1970)
         if langs[0] == "English" or langs[0] == "Turkish":
