@@ -31,7 +31,7 @@ def donusturucu(isim):
     degistir = str.maketrans("çğıöşüéä", "cgiosuea")
     isim = isim.translate(degistir)
     isim = re.sub(' +', ' ', isim)
-    isim = isim.translate({ord(i): None for i in ".,:;-·''[](){}%*=&$#"})
+    isim = isim.translate({ord(i): None for i in ".,:;-·''[](){}%*=&$#!?"})
     if isim is not None:
         return isim
     else:
