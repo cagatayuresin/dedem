@@ -42,7 +42,7 @@ async def adamasmaca(ctx):
     # filmadi = top250random()
     kontrol2 = False
     while not kontrol2:
-        filmid = random_rating_checker(8.1, 10)
+        filmid = random_rating_checker(7.9, 10)
         langs = taking_movie_langs(filmid)
         yearchecker = year_checker(filmid, 1970)
         if langs[0] == "English" or langs[0] == "Turkish":
@@ -53,7 +53,7 @@ async def adamasmaca(ctx):
                 continue
         else:
             continue
-    filmid = random_rating_checker(6.4, 10)
+    #filmid = random_rating_checker(8.1, 10)
     film = getting_title(filmid)
     filmadi = film
     donusmusfilmadi = donusturucu(filmadi)
@@ -70,7 +70,7 @@ async def adamasmaca(ctx):
                                                                                                             bildirim))
     try:
         while not kontrol:
-            tahmin = await client.wait_for('message', timeout=30, check=wrapper(ctx))
+            tahmin = await client.wait_for('message', timeout=45, check=wrapper(ctx))
             if tahmin.author.name == oyuncu:
                 msg = tahmin
                 cevap = tahmin.content
@@ -151,7 +151,7 @@ async def adamasmaca(ctx):
             else:
                 continue
     except:
-        bildirim = "30 sn içinde cevap verilmedi. Oyun sonlandırıldı."
+        bildirim = "45 sn içinde cevap verilmedi. Oyun sonlandırıldı."
         # strskor = str(skor)
         await botmessage.delete()
         botmessage = await ctx.send(

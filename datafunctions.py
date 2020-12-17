@@ -34,7 +34,7 @@ def random_rating_checker(down, up):
                 rating = rating.replace(",", ".")
                 rating = float(rating)
                 if down < rating < up:
-                    print(str(i) + "/t" + str(rating) + "/t" + str(counter) + " film tarandı.")
+                    print(str(i) + "\t" + str(rating) + "\t" + str(counter) + " film tarandı.")
                     return i
                 else:
                     continue
