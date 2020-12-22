@@ -8,6 +8,7 @@ from wikipediafunctions import *
 from turengfunctions import *
 from datafunctions import *
 import time
+import random
 
 dedembotversion = config.the_bot_version
 client = commands.Bot(command_prefix="!", help_command=None)
@@ -24,6 +25,79 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="!yardım için"))
     print("Bot Hazır!")
 
+@client.command(aliases=['yaklaş', 'Yaklas', 'Yaklaş'])
+async def yaklas(ctx):
+    komut = "yaklas"
+    sunucu = ctx.message.guild.name
+    kanaladi = ctx.message.channel.mention
+    oyuncu = ctx.message.author.name
+    log(oyuncu, komut, sunucu, kanaladi)
+    skor = 1000
+    strskor = "\nSkor: "
+    soru = random.randint(1, 99)
+    kontrol = False
+    botsorusu = "Aklımdan 0 ile 100 arasında bir sayı tuttum. Tahmin etmek ister misin?"
+    bildirim = "\nOyun başladı."
+    iptal = "\nÇıkmak için iptal yazabilirsin."
+    botmessage = await ctx.send("```" + botsorusu + bildirim + "\n" + oyuncu + iptal + "```")
+    counter = 0
+    try:
+        while not kontrol:
+            tahmin = await client.wait_for('message', timeout=45, check=wrapper(ctx))
+            counter += 1
+            if tahmin.author.name == oyuncu:
+                msg = tahmin
+                cevap = tahmin.content
+                cevap = cevap.replace("İptal", "iptal")
+                cevap = cevap.lower()
+                time.sleep(1)
+                await msg.delete()
+                if cevap == "iptal":
+                    await botmessage.delete()
+                    bildirim = "\nOyun iptal edildi."
+                    botmessage = await ctx.send("```" + botsorusu + bildirim + "\n" + oyuncu + "```")
+                    kontrol = True
+                else:
+                    try:
+                        cevapint = int(cevap)
+                        if 0 < cevapint < 100:
+                            if cevapint == soru:
+                                if counter == 1:
+                                    bildirim = "\nLan yok artık. Tek seferde. Cevap şuydu gerçekten de: "
+                                    skor = 666
+                                else:
+                                    bildirim = "\nValla bravo. Cevap şuydu: "
+                                    skor = skor - counter * 2
+                                await botmessage.delete()
+                                botmessage = await ctx.send("```" + botsorusu + bildirim + str(soru) + strskor + str(skor) + "\n" + oyuncu + "```")
+                                kontrol = True
+                            elif cevapint < soru:
+                                skor = skor - counter * 2
+                                await botmessage.delete()
+                                bildirim = "\nYüksek söyle."
+                                botmessage = await ctx.send("```" + botsorusu + bildirim + strskor + str(skor) + "\n" + oyuncu + iptal + "```")
+                            else:
+                                skor = skor - counter * 2
+                                await botmessage.delete()
+                                bildirim = "\nDüşük söyle."
+                                botmessage = await ctx.send("```" + botsorusu + bildirim + strskor + str(skor) + "\n" + oyuncu + iptal + "```")
+                        else:
+                            await botmessage.delete()
+                            skor = skor - 300
+                            bildirim = "\n1 ile 100 arasında bir sayı girmelisin."
+                            botmessage = await ctx.send("```" + botsorusu + bildirim + strskor + str(skor) + "\n" + oyuncu + iptal + "```")
+                    except:
+                        await botmessage.delete()
+                        skor = skor - 500
+                        bildirim = "\nSadece sayı girmelisin."
+                        botmessage = await ctx.send("```" + botsorusu + bildirim + strskor + str(skor) + "\n" + oyuncu + iptal + "```")
+            else:
+                continue
+    except:
+        await botmessage.delete()
+        bildirim = "\n45 sn içinde cevap verilmedi. Oyun iptal edildi."
+        await ctx.send("```" + botsorusu + bildirim + "\n" + oyuncu + "```")
+
 # noinspection PyBroadException
 @client.command()
 async def adamasmaca(ctx):
@@ -37,6 +111,13 @@ async def adamasmaca(ctx):
     skor = 1000
     strskor = str(skor)
     # filmadi = top250random()
+    adam = ["https://cdn.discordapp.com/attachments/787434159203024917/790900370729467904/hangman6.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900367272706088/hangman5.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900363393105930/hangman4.png\n", 
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900358334906398/hangman3.png\n", 
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900354664366110/hangman2.png\n", 
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900350089166858/hangman1.png\n", 
+    "https://cdn.discordapp.com/attachments/787434159203024917/790900339331039292/hangman.png\n"]
     kontrol2 = False
     while not kontrol2:
         filmid = random_rating_checker(7.9, 10)
@@ -59,8 +140,9 @@ async def adamasmaca(ctx):
     filmsorulist = list(filmsoru)
     cikanlar = "#"
     cikanlarlist = list(cikanlar)
+    kalanhak = 6
     botmessage = await ctx.send(
-        "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru,
+        adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru,
                                                                                                             strskor,
                                                                                                             oyuncu,
                                                                                                             cikanlar,
@@ -81,7 +163,7 @@ async def adamasmaca(ctx):
                     bildirim = "Oyun iptal edildi"
                     await botmessage.delete()
                     botmessage = await ctx.send(
-                        "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                        adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
                                                                                         cikanlar, bildirim))
                     kontrol = True
                 elif len(cevap) > 1:
@@ -92,25 +174,44 @@ async def adamasmaca(ctx):
                         strskor = str(skor)
                         await botmessage.delete()
                         botmessage = await ctx.send(
-                            "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
                                                                                             cikanlar, bildirim))
                         kontrol = True
                     else:
                         bildirim = "Birden fazla tahmin"
                         skor = skor - 500
+                        kalanhak = kalanhak - 1
+                        print(kalanhak)
                         strskor = str(skor)
-                        await botmessage.delete()
-                        botmessage = await ctx.send(
-                            "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                                filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                        if kalanhak == 0:
+                            bildirim = "Adam asıldı. Oyun bitti"
+                            await botmessage.delete()
+                            botmessage = await ctx.send(
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                                                                                        cikanlar, bildirim))
+                            kontrol = True
+                        else:
+                            await botmessage.delete()
+                            botmessage = await ctx.send(
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru, strskor, oyuncu, cikanlar, bildirim))
                 elif cikanlar.count(cevap) > 0:
                     bildirim = "Çıkmış tahmin"
                     skor = skor - 200
+                    kalanhak = kalanhak - 1
+                    print(kalanhak)
                     strskor = str(skor)
-                    await botmessage.delete()
-                    botmessage = await ctx.send(
-                        "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                            filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                    if kalanhak == 0:
+                        bildirim = "Adam asıldı. Oyun bitti"
+                        await botmessage.delete()
+                        botmessage = await ctx.send(
+                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                                                                                        cikanlar, bildirim))
+                        kontrol = True
+                    else:
+                        await botmessage.delete()
+                        botmessage = await ctx.send(
+                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                filmsoru, strskor, oyuncu, cikanlar, bildirim))
                 else:
                     cikanlarlist.append(cevap)
                     cikanlar = ''.join([str(elem) for elem in cikanlarlist])
@@ -128,23 +229,32 @@ async def adamasmaca(ctx):
                             strskor = str(skor)
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor,
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor,
                                                                                                 oyuncu, cikanlar,
                                                                                                 bildirim))
                             kontrol = True
                         else:
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
                                     filmsoru, strskor, oyuncu, cikanlar, bildirim))
                     else:
                         bildirim = "Yanlış tahmin"
                         skor = skor - 50
+                        kalanhak = kalanhak -1
                         strskor = str(skor)
-                        await botmessage.delete()
-                        botmessage = await ctx.send(
-                            "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                                filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                        if kalanhak == 0:
+                            bildirim = "Adam asıldı. Oyun bitti"
+                            await botmessage.delete()
+                            botmessage = await ctx.send(
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                                                                                        cikanlar, bildirim))
+                            kontrol = True
+                        else:
+                            await botmessage.delete()
+                            botmessage = await ctx.send(
+                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                    filmsoru, strskor, oyuncu, cikanlar, bildirim))
             else:
                 continue
     except:
@@ -152,7 +262,7 @@ async def adamasmaca(ctx):
         # strskor = str(skor)
         await botmessage.delete()
         botmessage = await ctx.send(
-            "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu, cikanlar,
+            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu, cikanlar,
                                                                             bildirim))
 
 @client.command(aliases=['Zar'])
