@@ -1,13 +1,13 @@
 import pandas as pd
 import random
 
-moviesdata = pd.read_csv("movies/IMDb movies.csv")
+moviesdata = pd.read_csv("movies/movies.csv", encoding = "ISO-8859-1", delimiter= ';')
 
 original_title = moviesdata["original_title"]
-global_title = moviesdata["title"]
+#global_title = moviesdata["title"]
 imdb_rating = moviesdata["avg_vote"]
-movie_lang = moviesdata["language"]
-movie_country = moviesdata["country"]
+#movie_lang = moviesdata["language"]
+#movie_country = moviesdata["country"]
 #movie_genres = moviesdata["genre"]
 #movie_director = moviesdata["director"]
 #movie_writer = moviesdata["writer"]
@@ -15,7 +15,7 @@ movie_country = moviesdata["country"]
 #movie_imdb_tt_id = moviesdata["imdb_title_id"]
 #movie_production = moviesdata["production_company"]
 #movie_description = moviesdata["description"]
-movie_year = moviesdata["year"]
+#movie_year = moviesdata["year"]
 
 def random_rating_checker(down, up):
     kontrol = False
@@ -39,6 +39,11 @@ def random_rating_checker(down, up):
                     continue
             else:
                 continue
+
+def get_random_movie():
+    i = random.randint(0, 2019)
+    title = getting_title(i)
+    return title
 
 def taking_movie_langs(i):
     if movie_lang[i] is None:

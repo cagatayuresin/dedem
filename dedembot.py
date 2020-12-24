@@ -118,22 +118,23 @@ async def adamasmaca(ctx):
     "https://cdn.discordapp.com/attachments/787434159203024917/790900354664366110/hangman2.png\n", 
     "https://cdn.discordapp.com/attachments/787434159203024917/790900350089166858/hangman1.png\n", 
     "https://cdn.discordapp.com/attachments/787434159203024917/790900339331039292/hangman.png\n"]
-    kontrol2 = False
-    while not kontrol2:
-        filmid = random_rating_checker(7.9, 10)
-        langs = taking_movie_langs(filmid)
-        yearchecker = year_checker(filmid, 1970)
-        if langs[0] == "English" or langs[0] == "Turkish":
-            if yearchecker:
-                getting_title(filmid)
-                kontrol2 = True
-            else:
-                continue
-        else:
-            continue
+    #kontrol2 = False
+    #while not kontrol2:
+    #    filmid = random_rating_checker(7.9, 10)
+    #    langs = taking_movie_langs(filmid)
+    #    yearchecker = year_checker(filmid, 1970)
+    #    if langs[0] == "English" or langs[0] == "Turkish":
+    #        if yearchecker:
+    #            getting_title(filmid)
+    #            kontrol2 = True
+    #        else:
+    #            continue
+    #    else:
+    #        continue
     #filmid = random_rating_checker(8.1, 10)
-    film = getting_title(filmid)
-    filmadi = film
+    #film = getting_title(filmid)
+    #filmadi = film
+    filmadi = get_random_movie()
     donusmusfilmadi = donusturucu(filmadi)
     filmsoru = sansur(donusmusfilmadi)
     print("\t" + donusmusfilmadi)
