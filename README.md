@@ -16,7 +16,11 @@ Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyo
 !sence
 	fikrini beyan eder
 !youtube anahtar sözcük
+<<<<<<< HEAD
 	youtube'dan 'anahtar sözcük' aramasından ilk sonucun linkini getirir
+=======
+	youtube'dan 'anahtar sözcük' ilk sonucun linkini getirir
+>>>>>>> origin/master
 !filmöner
 	iyi bir film önerir
 !iq40
@@ -39,5 +43,10 @@ Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyo
 !hakkında
 ```
 
+<<<<<<< HEAD
 ## Lisans
 [MIT](https://choosealicense.com/licenses/mit/)
+=======
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+>>>>>>> origin/master
