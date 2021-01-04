@@ -111,13 +111,13 @@ async def adamasmaca(ctx):
     skor = 1000
     strskor = str(skor)
     # filmadi = top250random()
-    adam = ["https://cdn.discordapp.com/attachments/787434159203024917/790900370729467904/hangman6.png\n",
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900367272706088/hangman5.png\n",
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900363393105930/hangman4.png\n", 
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900358334906398/hangman3.png\n", 
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900354664366110/hangman2.png\n", 
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900350089166858/hangman1.png\n", 
-    "https://cdn.discordapp.com/attachments/787434159203024917/790900339331039292/hangman.png\n"]
+    adam = ["https://cdn.discordapp.com/attachments/787434159203024917/792415433349267507/hangman6.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415428592533504/hangman5.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415425613791242/hangman4.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415423119360030/hangman3.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415419225866270/hangman2.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415416105959434/hangman1.png\n",
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415412700446720/hangman.png\n"]
     #kontrol2 = False
     #while not kontrol2:
     #    filmid = random_rating_checker(7.9, 10)
@@ -279,7 +279,7 @@ async def zar(ctx):
     time.sleep(2)
     rasgele2 = random.choice(zarlist)
     if rasgele1 == ":one:" and rasgele2 == ":one:":
-        yorum = "Hep-yek! :crown"
+        yorum = "Hep-yek!"
     elif rasgele1 == ":six:" and rasgele2 == ":six:":
         yorum = "Dü-Şeş!"
     elif rasgele1 == ":two:" and rasgele2 == ":two:":
