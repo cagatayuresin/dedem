@@ -37,39 +37,6 @@ def get_random_movie():
     return title
 
 
-def taking_movie_langs(i):
-    if movie_lang[i] is None:
-        return ["None"]
-    else:
-        langs = movie_lang[i]
-        langs = str(langs)
-        print(langs)
-        if langs != "None":
-            langs = langs.split(", ")
-            return langs
-        else:
-            return ["None"]
-
-
 def getting_title(i):
     title = str(original_title[i])
     return title
-
-
-def getting_year(i):
-    if movie_year[i] is not None:
-        year = movie_year[i]
-        year = str(year)
-        return year
-    else:
-        year = "0"
-        return year
-
-
-def year_checker(i, down):
-    year = getting_year(i)
-    year = int(year)
-    if year >= down:
-        return True
-    else:
-        return False
