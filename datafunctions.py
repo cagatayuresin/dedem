@@ -5,31 +5,32 @@ moviesdata = pd.read_csv("movies/movies.csv", encoding="ISO-8859-1", delimiter='
 
 original_title = moviesdata["original_title"]
 imdb_rating = moviesdata["avg_vote"]
+genres = moviesdata["genre"]
+imdbid = moviesdata["imdb_title_id"]
+year = moviesdata["year"]
+
+def get_the_year(i):
+    yil = str(year[i])
+    return yil
 
 
-def random_rating_checker(down, up):
-    kontrol = False
-    up = float(up)
-    down = float(down)
-    counter = 0
-    while not kontrol:
-        i = random.randint(0, 85850)
-        counter += 1
-        if imdb_rating[i] is None:
-            continue
-        else:
-            rating = str(imdb_rating[i])
-            if rating != "None":
-                rating = rating.replace(",", ".")
-                rating = float(rating)
-                if down < rating < up:
-                    print(str(i) + "\t" + str(rating) + "\t" + str(counter) + " film tarandı.")
-                    return i
-                else:
-                    continue
-            else:
-                continue
 
+def get_the_point(i):
+    puan = str(imdb_rating[i])
+    return puan
+
+def get_the_link(i):
+    link = str(imdbid[i])
+    link = "https://www.imdb.com/title/" + link
+    return link
+
+def get_genres(i):
+    i = int(i)
+    turleri = genres[i]
+    turleri = turleri.split(", ")
+    turleri = [item.lower() for item in turleri]
+    print(turleri)
+    return turleri
 
 def get_random_movie():
     i = random.randint(0, 2019)

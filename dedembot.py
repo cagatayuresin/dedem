@@ -28,6 +28,26 @@ async def on_ready():
     print("Bot Hazır!")
 
 
+@client.command(aliases=["türöner", "Tureoner", "Türöner"])
+async def turoner(ctx, arg):
+    komut = "turoner"
+    sunucu = ctx.message.guild.name
+    kanaladi = ctx.message.channel.mention
+    oyuncu = ctx.message.author.name
+    log(oyuncu, komut, sunucu, kanaladi)
+    kontrol = True
+    istenilen_tur = arg.lower()
+    while kontrol is True:
+        i = random.randint(1, 2019)
+        turler = get_genres(i)
+        if istenilen_tur in turler:
+            sonuc = getting_title(i) + " " + get_the_year(i) + " " + get_the_point(i) + "\n" + get_the_link(i)
+            await ctx.send(sonuc)
+            kontrol = False
+        else:
+            continue
+
+
 @client.command(aliases=['yaklaş', 'Yaklas', 'Yaklaş'])
 async def yaklas(ctx):
     komut = "yaklas"
@@ -388,7 +408,6 @@ async def lyrics(ctx):
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
-    # await ctx.send("Getirdi mi bari doğru sözleri. Getirmediyse `!sozleri anahtar sözcük` ile bana aratabilirsin.")
     await ctx.send("Getirdi mi bari doğru sözleri?")
 
 
@@ -410,7 +429,7 @@ async def yardim(ctx):
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
     await ctx.send(
-        "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!posta gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
+        "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!turoner 'tur ismi (ingilizce)'\n\tistediğiniz türde iyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!posta gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
 
 
 @client.command()
