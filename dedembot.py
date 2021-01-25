@@ -10,8 +10,10 @@ from datafunctions import *
 import time
 import random
 
+anahtar = 2
 dedembotversion = the_bot_version()
-client = commands.Bot(command_prefix="!", help_command=None)
+komut_onculu = the_prefix(anahtar)
+client = commands.Bot(command_prefix=komut_onculu, help_command=None)
 
 
 # mesaj yazarı kontrolcüsü
@@ -24,28 +26,54 @@ def wrapper(context):
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="!yardım için"))
+    izliyor = komut_onculu + "yardım için"
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=izliyor))
     print("Bot Hazır!")
 
 
 @client.command(aliases=["türöner", "Tureoner", "Türöner"])
-async def turoner(ctx, arg):
+async def turoner(ctx, arg="empty"):
     komut = "turoner"
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
     oyuncu = ctx.message.author.name
     log(oyuncu, komut, sunucu, kanaladi)
-    kontrol = True
-    istenilen_tur = arg.lower()
-    while kontrol is True:
-        i = random.randint(1, 2019)
-        turler = get_genres(i)
-        if istenilen_tur in turler:
-            sonuc = getting_title(i) + " " + get_the_year(i) + " " + get_the_point(i) + "\n" + get_the_link(i)
-            await ctx.send(sonuc)
-            kontrol = False
+    turlistesi = ['suç', 'drama', 'korku', 'aşk', 'komedi', 'gerilim', 'biyografi', 'tarih', 'gizem', 'western', 'aile',
+                  'macera', 'bilimkurgu', 'spor', 'animasyon', 'savaş', 'müzikal', 'aksiyon', 'fantastik', 'müzik',
+                  'belgesel']
+    turlistesiing = ['crime', 'drama', 'horror', 'romance', 'comedy', 'thriller', 'biography', 'history', 'mystery',
+                     'western', 'family', 'adventure', 'sci-fi', 'sport', 'animation', 'war', 'musical', 'action',
+                     'fantasy', 'music', 'documentary']
+    if arg != "empty":
+        kontrol = True
+        istenilen_tur = arg.lower()
+
+        if istenilen_tur in turlistesi:
+            for x in range(len(turlistesi)):
+                if istenilen_tur == turlistesi[x]:
+                    istenilen_tur = turlistesiing[x]
+                else:
+                    continue
         else:
-            continue
+            kontrol = False
+            await ctx.send("**Düzgün yazar mısın şunu!!** "+ arg +"** nedir allaşkına?**")
+
+        while kontrol is True:
+            i = random.randint(1, 2019)
+            turler = get_genres(i)
+            if istenilen_tur in turler:
+                sonuc = getting_title(i) + " " + get_the_year(i) + " " + get_the_point(i) + "\n" + get_the_link(i)
+                await ctx.send(sonuc)
+                kontrol = False
+            else:
+                continue
+    else:
+        mesaj = "`" + komut_onculu + "türöner 'listeden seçin'`\n"
+        turler = ""
+        for ele in turlistesi:
+            turler = turler + " | " + ele + " | "
+        mesaj = mesaj + turler
+        await ctx.send(mesaj)
 
 
 @client.command(aliases=['yaklaş', 'Yaklas', 'Yaklaş'])
@@ -402,16 +430,6 @@ async def hakkinda(ctx):
 
 
 @client.command()
-async def lyrics(ctx):
-    komut = "lyrics"
-    name = ctx.message.author.name
-    sunucu = ctx.message.guild.name
-    kanaladi = ctx.message.channel.mention
-    log(name, komut, sunucu, kanaladi)
-    await ctx.send("Getirdi mi bari doğru sözleri?")
-
-
-@client.command()
 async def rank(ctx):
     komut = "rank"
     name = ctx.message.author.name
@@ -428,8 +446,30 @@ async def yardim(ctx):
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
-    await ctx.send(
-        "```diff\n!selam\n\tselamını alır\n!savundun\n\tkarşı çıkar\n!imdb anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir\n!puan anahtar sözcük\n\timdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir\n!sence\n\tfikrini beyan eder\n!youtube anahtar sözcük\n\tyoutube'dan 'anahtar sözcük' ilk sonucun linkini getirir\n!filmöner\n\tiyi bir film önerir\n!turoner 'tur ismi (ingilizce)'\n\tistediğiniz türde iyi bir film önerir\n!iq40\n\tçok kötü bir film önerir\n!adamasmaca\n\tfilm isimleri üzerinden adamasmaca oyunu\n!zar\n\tbir çift zar atar\n!wiki anahtar sözcük\n\twikipedia türkiye'den 'anahtar sözcük' aramasından ilk sonucu getirir\n!türeng anahtar sözcük\n\ttürkçe ingilizce sözlük\n!engtür anahtar sözcük\n\tingilizce türkçe sözlük\n!tdk anahtar sözcük\n\tsozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir\n!rohan\n!posta gönderi metni...\n\tdilek, öneri, şikayet kutusu (sadece curesin görür)\n!hakkında```")
+    komutlar = [["selam", "selam verir."],
+                ["savundun", "karşı çıkar."],
+                ["imdb 'anahtar sözcük'", "IMDb üzerinde 'anahtar sözcük' aramasının ilk 5 sonucunun linkini gönderir. 5'ten az gönderi gelmişse sonuç çıkan gönderi kadardır. Hiçbir şey bulamazsa cevap vermez, içine atar."],
+                ["puan 'anahtar sözcük'", "IMDb üzerinde 'anahtar sözcük' aramasının ilk 5 sonucunun puanını gönderir. 5'ten az gönderi gelmişse sonuç çıkan gönderi kadardır. Hiçbir şey bulamazsa cevap vermez, içine atar."],
+                ["sence", "Feyzinden faydalanmak isterseniz fikrini sorabilirsiniz."],
+                ["youtube 'anahtar sözcük'", "YouTube üzerinde 'anahtar sözcük' aramasının ilk sonucunun linkini gönderir."],
+                ["filmöner", "İyi bir film önerir."],
+                ["türöner 'tür adı'", "İstediğiniz türde iyi bir film önerir."],
+                ["iq40", "Rezalet bir film önerir."],
+                ["adamasmaca", "İyi bir filmin adından adam asmaca oynarsınız."],
+                ["zar", "Bir çift zar atar."],
+                ["wiki 'anahtar sözcük'", "Wikipedi üzerinden 'anahtar sözcük' aramasından ilk sonucu getirir."],
+                ["türeng 'anahtar sözcük'", "Türkçe bir 'anahtar sözcük'ün Tureng'teki İngilizce karşılıklarını getirir."],
+                ["engtür 'anahtar sözcük'", "İngilizce bir 'anahtar sözcük'ün Tureng'teki Türkçe karşılıklarını getirir."],
+                ["tdk 'anahtar sözcük'", "'anahtar sözcük'ün Türk Dil Kurumu'ndaki anlamlarını getirir."],
+                ["rohan", "Rohan Turhan"],
+                ["posta 'gönderi metni'", "Programcıya bir mesaj gönderebilirsiniz. curesin'den başkası görmez."],
+                ["hakkında", "Dedem Bot'un hakkında ve sürüm bilgisi ekranı gelir."]
+                ]
+    create_msg = ""
+    for k in range(len(komutlar)):
+        create_msg = create_msg + "\n`" + komut_onculu + komutlar[k][0] + "`\t*" + komutlar[k][1] + "*"
+
+    await ctx.send(create_msg)
 
 
 @client.command()
@@ -611,4 +651,4 @@ async def wiki(ctx, *, arg):
     await ctx.send(cevap)
 
 
-client.run(the_discord_token())
+client.run(the_discord_token(anahtar))

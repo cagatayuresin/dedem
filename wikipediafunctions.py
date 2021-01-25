@@ -13,6 +13,6 @@ def wikigetir(s):
     sonuc = wikipedia.page(arama[0])
     baslik = sonuc.title
     sonuclink = sonuc.url
-    ozet = wikipedia.summary(baslik, sentences=3)
+    ozet = wikipedia.summary(baslik, chars=250)
     donut = [baslik, ozet, sonuclink]
     return donut

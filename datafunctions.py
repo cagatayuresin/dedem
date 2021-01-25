@@ -9,28 +9,30 @@ genres = moviesdata["genre"]
 imdbid = moviesdata["imdb_title_id"]
 year = moviesdata["year"]
 
+
 def get_the_year(i):
     yil = str(year[i])
     return yil
-
 
 
 def get_the_point(i):
     puan = str(imdb_rating[i])
     return puan
 
+
 def get_the_link(i):
     link = str(imdbid[i])
     link = "https://www.imdb.com/title/" + link
     return link
+
 
 def get_genres(i):
     i = int(i)
     turleri = genres[i]
     turleri = turleri.split(", ")
     turleri = [item.lower() for item in turleri]
-    print(turleri)
     return turleri
+
 
 def get_random_movie():
     i = random.randint(0, 2019)
