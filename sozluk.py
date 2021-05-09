@@ -1,4 +1,4 @@
-from tdk import tdk
+import tdk
 from functionsdedem import *
 
 

@@ -8,7 +8,7 @@ def kutu(name, servername, gonderimetni):
     f.close()
     return True
 
-def listtostring(s):
+def listtostring(s) -> object:
     str1 = "\n:ballot_box_with_check: ".join(str(e) for e in s)
     return str1
 

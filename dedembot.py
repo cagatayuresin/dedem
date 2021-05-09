@@ -7,10 +7,11 @@ from youtubearama import *
 from wikipediafunctions import *
 from turengfunctions import *
 from datafunctions import *
+from etimolojifunctions import *
 import time
 import random
 
-anahtar = 2
+anahtar = 1
 dedembotversion = the_bot_version()
 komut_onculu = the_prefix(anahtar)
 client = commands.Bot(command_prefix=komut_onculu, help_command=None)
@@ -347,6 +348,44 @@ async def zar(ctx):
     if yorum == "Hep-yek!":
         await ctx.send("https://cdn.discordapp.com/attachments/727053808030449677/786074019190276126/Yine_Hep_Yek.webm")
 
+@client.command(aliases=['bayramın', 'ver', 'hayırlı', 'bayram', 'dedecim', 'b'])
+async def ver_opeyim(ctx):
+    komut = "bayramlasma"
+    username = ctx.message.author.mention
+    name = ctx.message.author.name
+    sunucu = ctx.message.guild.name
+    kanaladi = ctx.message.channel.mention
+    log(name, komut, sunucu, kanaladi)
+    bayramlasma = False
+    with open("Others/bayramlasma.txt", "r+") as f:
+        for line in f:
+            if line == name:
+                print("Bayramlaşılmış")
+                bayramlasma = True
+            else:
+                continue
+    with open("Others/bayramlasma.txt", "a+") as dosya:
+        if bayramlasma == False:
+            if name == "curesin":
+                await ctx.send(username + "Bayramın mübarek olsun baba, ver öpeyim elini!")
+                elim = await client.wait_for('message', timeout=45, check=wrapper(ctx))
+                if elim == ":raised_back_of_hand:":
+                    await ctx.send(":kissing_closed_eyes:")
+                    await ctx.send("Ohh, cennet kokuyo cennet!")
+                else:
+                    pass
+            else:
+                botuneli = await ctx.send("Öp bakalım! :relieved:")
+                botuneli2 = await ctx.send(":raised_back_of_hand:")
+                opucuk = await client.wait_for('message', timeout=45, check=wrapper(ctx))
+                if opucuk == ":kiss:":
+                    await ctx.send("Vay tosunum, el öpenlerin çok olsun. Al sana :dollar: 5$")
+                    dosya.write(name)
+                    await botuneli.delete()
+                    await botuneli2.delete()
+                    await opucuk.delete()
+        else:
+            await ctx.send("Senle bayramlaştık ya keranacı! :smile:")
 
 @client.command(aliases=['selamın', 'hello', 'merhaba', 'hi'])
 async def selam(ctx):
@@ -394,6 +433,16 @@ async def _tdk(ctx, *, arg):
         donut = "Sevgili " + username + " **" + arg + "** için ne yazık ki bir şey bulamadım.\n"
     await ctx.send(donut)
 
+@client.command(aliases=['etimoloji', 'Etimoloji'])
+async def _etimoloji(ctx, *, arg):
+    komut = "etimoloji"
+    username = ctx.message.author.mention
+    name = ctx.message.author.name
+    sunucu = ctx.message.guild.name
+    kanaladi = ctx.message.channel.mention
+    log(name, komut, sunucu, kanaladi)
+    cevap = etimoloji(arg)
+    await ctx.send(cevap)
 
 @client.command()
 async def savundun(ctx):
@@ -456,11 +505,13 @@ async def yardim(ctx):
                 ["türöner 'tür adı'", "İstediğiniz türde iyi bir film önerir."],
                 ["iq40", "Rezalet bir film önerir."],
                 ["adamasmaca", "İyi bir filmin adından adam asmaca oynarsınız."],
+                ["yaklas", "Dedemin aklından tuttuğu sayıyı kaç tahminde bilebilirsiniz?"],
                 ["zar", "Bir çift zar atar."],
                 ["wiki 'anahtar sözcük'", "Wikipedi üzerinden 'anahtar sözcük' aramasından ilk sonucu getirir."],
                 ["türeng 'anahtar sözcük'", "Türkçe bir 'anahtar sözcük'ün Tureng'teki İngilizce karşılıklarını getirir."],
                 ["engtür 'anahtar sözcük'", "İngilizce bir 'anahtar sözcük'ün Tureng'teki Türkçe karşılıklarını getirir."],
                 ["tdk 'anahtar sözcük'", "'anahtar sözcük'ün Türk Dil Kurumu'ndaki anlamlarını getirir."],
+                ["etimoloji 'anahtar sözcük'", "'anahtar sözcük'ün etimolojisini getirir."],
                 ["rohan", "Rohan Turhan"],
                 ["posta 'gönderi metni'", "Programcıya bir mesaj gönderebilirsiniz. curesin'den başkası görmez."],
                 ["hakkında", "Dedem Bot'un hakkında ve sürüm bilgisi ekranı gelir."]
