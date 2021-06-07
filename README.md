@@ -1,6 +1,16 @@
 # Dedem
+## Herbokolog Discord Botu
+[https://cagatayuresin.github.io/dedem/](https://cagatayuresin.github.io/dedem/)
 
-Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyonlu bir bottur.
+[Davet Linki](https://discord.com/oauth2/authorize?client_id=783837351990263838&permissions=8&scope=bot)
+
+Sunucunuzdaki Huysuz
+
+Dedem, bunak bir ansiklopedidir. Bir sözcüğün İngilizcesini ya da Türkçesini, kökenini ya da wikisini merak ettiğinizde ihtiyacınız olan tek satır komuttur.
+
+Dedem, sinefildir. Filmler hakkında bilmediği yoktur. Sunucunuzda film konuşmaya bayılıyorsanız Dedem'den istifade edin derim.
+
+Dedem oyunbazdır. Dedem huysuzdur. 
 
 ## Komutlar
 
@@ -15,7 +25,7 @@ Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyo
 	imdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir
 !sence
 	fikrini beyan eder
-!youtube anahtar sözcük
+!yt anahtar sözcük
 	youtube'dan 'anahtar sözcük' aramasından ilk sonucun linkini getirir
 	youtube'dan 'anahtar sözcük' ilk sonucun linkini getirir
 !filmöner
@@ -34,10 +44,10 @@ Dedem, Discord sunucularında mentorluk yapsın diye tasarlanmış çok fonksiyo
 	ingilizce türkçe sözlük
 !tdk anahtar sözcük
 	sozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir
-!rohan
-!posta gönderi metni...
-	dilek, öneri, şikayet kutusu (sadece curesin görür)
+!kökeni
+    bir sözcüğün etimolojik kökenini getirir
 !hakkında
+!yardım
 ```
 
 ## Lisans
