@@ -20,9 +20,9 @@ Dedem oyunbazdır. Dedem huysuzdur.
 !savundun
 	karşı çıkar
 !imdb anahtar sözcük
-	imdb'den 'anahtar sözcük' aramasından ilk 5 sonucun linkini getirir
+	imdb'den 'anahtar sözcük' aramasından ilk 2 sonucun linkini getirir
 !puan anahtar sözcük
-	imdb'den 'anahtar sözcük' aramasından ilk 5 sonucun puanını getirir
+	imdb'den 'anahtar sözcük' aramasından ilk 2 sonucun puanını getirir
 !sence
 	fikrini beyan eder
 !yt anahtar sözcük
@@ -30,6 +30,8 @@ Dedem oyunbazdır. Dedem huysuzdur.
 	youtube'dan 'anahtar sözcük' ilk sonucun linkini getirir
 !filmöner
 	iyi bir film önerir
+!türöner tür
+	türe yönelik film önerisi alursunuz.
 !iq40
 	çok kötü bir film önerir
 !adamasmaca
@@ -45,7 +47,7 @@ Dedem oyunbazdır. Dedem huysuzdur.
 !tdk anahtar sözcük
 	sozluk.gov.tr'den 'anahtar sözcük' aramasından sonuçları getirir
 !kökeni
-    bir sözcüğün etimolojik kökenini getirir
+	bir sözcüğün etimolojik kökenini getirir
 !hakkında
 !yardım
 ```
