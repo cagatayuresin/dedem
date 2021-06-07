@@ -1,44 +1,34 @@
 import discord
 from discord.ext import commands
-from config import *
-from imdbfunctions import *
-from sozluk import *
-from youtubearama import *
-from wikipediafunctions import *
-from turengfunctions import *
-from datafunctions import *
-from etimolojifunctions import *
+from tools import *
 import time
 import random
+from anahtar import anahtar
 
-anahtar = 1
-dedembotversion = the_bot_version()
-komut_onculu = the_prefix(anahtar)
-client = commands.Bot(command_prefix=komut_onculu, help_command=None)
+#configuration
+botToken = anahtar(1)
+botVersion = "8.2.2 (Beta)"
+thePrefix = "!"
+lastrelease = "08/06/2021"
 
-
-# mesaj yazarı kontrolcüsü
-def wrapper(context):
-    def check_msg(message):
-        return context.author == message.author and context.channel == message.channel
-
-    return check_msg
-
+#----------------------------
+client = commands.Bot(command_prefix=thePrefix, help_command=None)
 
 @client.event
 async def on_ready():
-    izliyor = komut_onculu + "yardım için"
+    izliyor = thePrefix + "yardım için"
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=izliyor))
     print("Bot Hazır!")
 
 
 @client.command(aliases=["türöner", "Tureoner", "Türöner"])
 async def turoner(ctx, arg="empty"):
-    komut = "turoner"
-    sunucu = ctx.message.guild.name
-    kanaladi = ctx.message.channel.mention
-    oyuncu = ctx.message.author.name
-    log(oyuncu, komut, sunucu, kanaladi)
+    theCommand = "turoner"
+    theGuild = ctx.message.guild.name
+    theChannel = ctx.message.channel.mention
+    theUsername = ctx.message.author.name
+    theUserMention = ctx.message.author.mention
+    log(theUsername, theCommand, theGuild, theChannel)
     turlistesi = ['suç', 'drama', 'korku', 'aşk', 'komedi', 'gerilim', 'biyografi', 'tarih', 'gizem', 'western', 'aile',
                   'macera', 'bilimkurgu', 'spor', 'animasyon', 'savaş', 'müzikal', 'aksiyon', 'fantastik', 'müzik',
                   'belgesel']
@@ -58,6 +48,12 @@ async def turoner(ctx, arg="empty"):
         else:
             kontrol = False
             await ctx.send("**Düzgün yazar mısın şunu!!** "+ arg +"** nedir allaşkına?**")
+            mesaj = "`" + thePrefix + "türöner 'listeden seçin'`\n"
+            turler = ""
+            for ele in turlistesi:
+                turler = turler + " | " + ele + " | "
+            mesaj = mesaj + turler
+            await ctx.send(mesaj)
 
         while kontrol is True:
             i = random.randint(1, 2019)
@@ -69,7 +65,7 @@ async def turoner(ctx, arg="empty"):
             else:
                 continue
     else:
-        mesaj = "`" + komut_onculu + "türöner 'listeden seçin'`\n"
+        mesaj = "`" + thePrefix + "türöner 'listeden seçin'`\n"
         turler = ""
         for ele in turlistesi:
             turler = turler + " | " + ele + " | "
@@ -151,44 +147,41 @@ async def yaklas(ctx):
         await ctx.send("```" + botsorusu + bildirim + "\n" + oyuncu + "```")
 
 
-# noinspection PyBroadException
-@client.command()
+@client.command(aliases=["adam"])
 async def adamasmaca(ctx):
     komut = "adamasmaca"
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
-    bildirim = "Oyun Başladı"
     oyuncu = ctx.message.author.name
+    guildsbest = besths(sunucu)
+    guildsbestname = guildsbest[0]
+    guildsbestscore = guildsbest[1]
+    playerbest = str(max(getuserhs(oyuncu, sunucu)))
+    print(playerbest,guildsbestname,guildsbestscore)
+    bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Oyun Başladı".format(guildsbestname,guildsbestscore,playerbest)
     log(oyuncu, komut, sunucu, kanaladi)
     kontrol = False
     skor = 1000
     strskor = str(skor)
-    # filmadi = top250random()
-    adam = ["https://cdn.discordapp.com/attachments/787434159203024917/792415433349267507/hangman6.png\n",
+    """adam = ["https://cdn.discordapp.com/attachments/787434159203024917/792415433349267507/hangman6.png\n",
     "https://cdn.discordapp.com/attachments/787434159203024917/792415428592533504/hangman5.png\n",
     "https://cdn.discordapp.com/attachments/787434159203024917/792415425613791242/hangman4.png\n",
     "https://cdn.discordapp.com/attachments/787434159203024917/792415423119360030/hangman3.png\n",
     "https://cdn.discordapp.com/attachments/787434159203024917/792415419225866270/hangman2.png\n",
     "https://cdn.discordapp.com/attachments/787434159203024917/792415416105959434/hangman1.png\n",
-    "https://cdn.discordapp.com/attachments/787434159203024917/792415412700446720/hangman.png\n"]
-    #kontrol2 = False
-    #while not kontrol2:
-    #    filmid = random_rating_checker(7.9, 10)
-    #    langs = taking_movie_langs(filmid)
-    #    yearchecker = year_checker(filmid, 1970)
-    #    if langs[0] == "English" or langs[0] == "Turkish":
-    #        if yearchecker:
-    #            getting_title(filmid)
-    #            kontrol2 = True
-    #        else:
-    #            continue
-    #    else:
-    #        continue
-    #filmid = random_rating_checker(8.1, 10)
-    #film = getting_title(filmid)
-    #filmadi = film
+    "https://cdn.discordapp.com/attachments/787434159203024917/792415412700446720/hangman.png\n"]"""
+    adam = [
+    " ______\n |    |\n |    O\n |   /|\\\n |   / \\\n_|",
+    " ______\n |    |\n |    O\n |   /|\\\n |   /   \n_|",
+    " ______\n |    |\n |    O\n |   /|\\\n |       \n_|",
+    " ______\n |    |\n |    O\n |   /|  \n |       \n_|",
+    " ______\n |    |\n |    O\n |    |  \n |       \n_|",
+    " ______\n |    |\n |    O\n |       \n |       \n_|",
+    " ______\n |    |\n |     \n |       \n |       \n_|",
+    ]
     filmadi = get_random_movie()
-    donusmusfilmadi = donusturucu(filmadi)
+    donusmusfilmadi = donusturucu(filmadi[0])
+    dili = filmadi[1]
     filmsoru = sansur(donusmusfilmadi)
     print("\t" + donusmusfilmadi)
     filmsorulist = list(filmsoru)
@@ -196,7 +189,7 @@ async def adamasmaca(ctx):
     cikanlarlist = list(cikanlar)
     kalanhak = 6
     botmessage = await ctx.send(
-        adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru,
+        "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru,dili,
                                                                                                             strskor,
                                                                                                             oyuncu,
                                                                                                             cikanlar,
@@ -214,58 +207,60 @@ async def adamasmaca(ctx):
                 time.sleep(1)
                 await msg.delete()
                 if cevap == "iptal":
-                    bildirim = "Oyun iptal edildi"
+                    bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Oyun iptal edildi".format(guildsbestname,guildsbestscore,playerbest)
                     await botmessage.delete()
                     botmessage = await ctx.send(
-                        adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                        "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru,dili,strskor, oyuncu,
                                                                                         cikanlar, bildirim))
                     kontrol = True
                 elif len(cevap) > 1:
                     if cevap == donusmusfilmadi:
-                        bildirim = "Valla Bravo"
+                        bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Valla Bravo".format(guildsbestname,guildsbestscore,playerbest)
                         filmsoru = donusmusfilmadi
                         skor = skor + 300
+                        if skor > int(playerbest):
+                            appendhs(oyuncu, sunucu, str(skor))
                         strskor = str(skor)
                         await botmessage.delete()
                         botmessage = await ctx.send(
-                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
+                            "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru,dili, strskor, oyuncu,
                                                                                             cikanlar, bildirim))
                         kontrol = True
                     else:
-                        bildirim = "Birden fazla tahmin"
+                        bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Birden fazla tahmin".format(guildsbestname,guildsbestscore,playerbest)
                         skor = skor - 500
                         kalanhak = kalanhak - 1
                         print(kalanhak)
                         strskor = str(skor)
                         if kalanhak == 0:
-                            bildirim = "Adam asıldı. Oyun bitti"
+                            bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Adam asıldı. Oyun bitti.".format(guildsbestname,guildsbestscore,playerbest)
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
-                                                                                        cikanlar, bildirim))
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Cevap şuydu: {}```".format(filmsoru,dili, strskor, oyuncu,
+                                                                                        cikanlar, bildirim, donusmusfilmadi))
                             kontrol = True
                         else:
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(filmsoru,dili, strskor, oyuncu, cikanlar, bildirim))
                 elif cikanlar.count(cevap) > 0:
-                    bildirim = "Çıkmış tahmin"
+                    bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Çıkmış tahmin".format(guildsbestname,guildsbestscore,playerbest)
                     skor = skor - 200
                     kalanhak = kalanhak - 1
                     print(kalanhak)
                     strskor = str(skor)
                     if kalanhak == 0:
-                        bildirim = "Adam asıldı. Oyun bitti"
+                        bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Adam asıldı oyun bitti.".format(guildsbestname,guildsbestscore,playerbest)
                         await botmessage.delete()
                         botmessage = await ctx.send(
-                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
-                                                                                        cikanlar, bildirim))
+                            "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Cevap şuydu: {}```".format(filmsoru,dili, strskor, oyuncu,
+                                                                                        cikanlar, bildirim, donusmusfilmadi))
                         kontrol = True
                     else:
                         await botmessage.delete()
                         botmessage = await ctx.send(
-                            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                                filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                            "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                filmsoru,dili, strskor, oyuncu, cikanlar, bildirim))
                 else:
                     cikanlarlist.append(cevap)
                     cikanlar = ''.join([str(elem) for elem in cikanlarlist])
@@ -273,50 +268,52 @@ async def adamasmaca(ctx):
                         for h in range(len(filmsoru)):
                             if donusmusfilmadi[h] == cevap:
                                 filmsorulist[h] = cevap
-                                bildirim = "Doğru tahmin"
+                                bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Doğru tahmin.".format(guildsbestname,guildsbestscore,playerbest)
                                 skor = skor + 15
                                 strskor = str(skor)
                                 filmsoru = ''.join([str(elem) for elem in filmsorulist])
                         if filmsoru == donusmusfilmadi:
-                            bildirim = "Oyun sonu"
+                            bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Oyun sonu.".format(guildsbestname,guildsbestscore,playerbest)
                             skor = skor + 15
+                            if skor > int(playerbest):
+                                appendhs(oyuncu, sunucu, str(skor))
                             strskor = str(skor)
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor,
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, dili,strskor,
                                                                                                 oyuncu, cikanlar,
                                                                                                 bildirim))
                             kontrol = True
                         else:
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                                    filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                    filmsoru,dili, strskor, oyuncu, cikanlar, bildirim))
                     else:
-                        bildirim = "Yanlış tahmin"
+                        bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Yanlış tahmin.".format(guildsbestname,guildsbestscore,playerbest)
                         skor = skor - 50
                         kalanhak = kalanhak - 1
                         strskor = str(skor)
                         if kalanhak == 0:
-                            bildirim = "Adam asıldı. Oyun bitti"
+                            bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n Adam asıldı. Oyun bitti.".format(guildsbestname,guildsbestscore,playerbest)
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu,
-                                                                                        cikanlar, bildirim))
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Cevap şuydu: {}```".format(filmsoru,dili, strskor, oyuncu,
+                                                                                        cikanlar, bildirim, donusmusfilmadi))
                             kontrol = True
                         else:
                             await botmessage.delete()
                             botmessage = await ctx.send(
-                                adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
-                                    filmsoru, strskor, oyuncu, cikanlar, bildirim))
+                                "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}\n Çıkmak için iptal cevabını verin!```".format(
+                                    filmsoru, dili,strskor, oyuncu, cikanlar, bildirim))
             else:
                 continue
     except:
-        bildirim = "45 sn içinde cevap verilmedi. Oyun sonlandırıldı."
-        # strskor = str(skor)
+        bildirim = "Sunucunun şampiyonu: {} {} Oyuncunun en yüksek skoru: {}\n 45sn içinde cevap verilmedi, oyun sonlandırıldı.".format(guildsbestname,guildsbestscore,playerbest)
+        strskor = str(skor)
         await botmessage.delete()
         await ctx.send(
-            adam[kalanhak] + "``` {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru, strskor, oyuncu, cikanlar,
+            "```"+adam[kalanhak]+"\n\n {} \n Dili: {} \n Skor: {}\n Oyuncu: {}\n Çıkanlar: {}\n {}```".format(filmsoru,dili, strskor, oyuncu, cikanlar,
                                                                             bildirim))
 
 
@@ -348,44 +345,6 @@ async def zar(ctx):
     if yorum == "Hep-yek!":
         await ctx.send("https://cdn.discordapp.com/attachments/727053808030449677/786074019190276126/Yine_Hep_Yek.webm")
 
-@client.command(aliases=['bayramın', 'ver', 'hayırlı', 'bayram', 'dedecim', 'b'])
-async def ver_opeyim(ctx):
-    komut = "bayramlasma"
-    username = ctx.message.author.mention
-    name = ctx.message.author.name
-    sunucu = ctx.message.guild.name
-    kanaladi = ctx.message.channel.mention
-    log(name, komut, sunucu, kanaladi)
-    bayramlasma = False
-    with open("Others/bayramlasma.txt", "r+") as f:
-        for line in f:
-            if line == name:
-                print("Bayramlaşılmış")
-                bayramlasma = True
-            else:
-                continue
-    with open("Others/bayramlasma.txt", "a+") as dosya:
-        if bayramlasma == False:
-            if name == "curesin":
-                await ctx.send(username + "Bayramın mübarek olsun baba, ver öpeyim elini!")
-                elim = await client.wait_for('message', timeout=45, check=wrapper(ctx))
-                if elim == ":raised_back_of_hand:":
-                    await ctx.send(":kissing_closed_eyes:")
-                    await ctx.send("Ohh, cennet kokuyo cennet!")
-                else:
-                    pass
-            else:
-                botuneli = await ctx.send("Öp bakalım! :relieved:")
-                botuneli2 = await ctx.send(":raised_back_of_hand:")
-                opucuk = await client.wait_for('message', timeout=45, check=wrapper(ctx))
-                if opucuk == ":kiss:":
-                    await ctx.send("Vay tosunum, el öpenlerin çok olsun. Al sana :dollar: 5$")
-                    dosya.write(name)
-                    await botuneli.delete()
-                    await botuneli2.delete()
-                    await opucuk.delete()
-        else:
-            await ctx.send("Senle bayramlaştık ya keranacı! :smile:")
 
 @client.command(aliases=['selamın', 'hello', 'merhaba', 'hi'])
 async def selam(ctx):
@@ -395,27 +354,10 @@ async def selam(ctx):
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
-    if name == "kamusalmizah":
-        await ctx.send("Selam Özgür Bey!")
-    elif name == "denizbagdas":
-        await ctx.send("Selam Deniz Hanım")
-    elif name == "curesin":
+    if name == "curesin":
         await ctx.send(username + " Selam Baba!")
     else:
         await ctx.send("Aleyküm selam {} kardeş. :pray:".format(username))
-
-
-@client.command(aliases=['gonderimetni', 'post', 'gonder', 'gönder', 'posta'])
-async def _posta(ctx, *, arg):
-    komut = "gonderimetni"
-    username = ctx.message.author.mention
-    name = ctx.message.author.name
-    sunucu = ctx.message.guild.name
-    kanaladi = ctx.message.channel.mention
-    log(name, komut, sunucu, kanaladi)
-    kutu(name, sunucu, arg)
-    await ctx.message.delete()
-    await ctx.send(username + " :wink:")
 
 
 @client.command(aliases=['TDK', 'Tdk', 'sözlük', 'sozluk', 'tdk'])
@@ -462,8 +404,9 @@ async def rohan(ctx):
     sunucu = ctx.message.guild.name
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
-    await ctx.send("https://cdn.discordapp.com/attachments/693928663707549776/784838732120981504/Screenshot_724.png")
-    await ctx.send("https://www.instagram.com/rohanturhan/")
+    if sunucu == "Kamusal Mizah":
+        await ctx.send("https://cdn.discordapp.com/attachments/693928663707549776/784838732120981504/Screenshot_724.png")
+        await ctx.send("https://www.instagram.com/rohanturhan/")
 
 
 @client.command(aliases=['hakkında', 'about'])
@@ -474,19 +417,8 @@ async def hakkinda(ctx):
     kanaladi = ctx.message.channel.mention
     log(name, komut, sunucu, kanaladi)
     await ctx.send(
-        "```2020 senesinin Aralık ayında soğuk bir karantina gecesi doğmuşum. Babamın adı curesin'dir; fakat henüz kendi başına üreyemediği için sağa sola sataşmaya, insanları irrite etmeye başlamıştı. İşsizliğin de verdiği boş beleş yaşantısına beni kodlayarak bir nebze renk katmak istedi.\n\nVersion: {} Release: 07/12/2020```".format(
-            dedembotversion))
-
-
-@client.command()
-async def rank(ctx):
-    komut = "rank"
-    name = ctx.message.author.name
-    sunucu = ctx.message.guild.name
-    kanaladi = ctx.message.channel.mention
-    log(name, komut, sunucu, kanaladi)
-    await ctx.send("mee6 söylemez ama benim gözümde 1 numarasın, güzel kardeşim")
-
+        "```\n\nVersion: {} First Release: 07/12/2020 | Last Releasee: {}```".format(
+            botVersion,lastrelease))
 
 @client.command(aliases=['yardım', 'help'])
 async def yardim(ctx):
@@ -512,16 +444,13 @@ async def yardim(ctx):
                 ["engtür 'anahtar sözcük'", "İngilizce bir 'anahtar sözcük'ün Tureng'teki Türkçe karşılıklarını getirir."],
                 ["tdk 'anahtar sözcük'", "'anahtar sözcük'ün Türk Dil Kurumu'ndaki anlamlarını getirir."],
                 ["etimoloji 'anahtar sözcük'", "'anahtar sözcük'ün etimolojisini getirir."],
-                ["rohan", "Rohan Turhan"],
-                ["posta 'gönderi metni'", "Programcıya bir mesaj gönderebilirsiniz. curesin'den başkası görmez."],
                 ["hakkında", "Dedem Bot'un hakkında ve sürüm bilgisi ekranı gelir."]
                 ]
     create_msg = ""
     for k in range(len(komutlar)):
-        create_msg = create_msg + "\n`" + komut_onculu + komutlar[k][0] + "`\t*" + komutlar[k][1] + "*"
+        create_msg = create_msg + "\n`" + thePrefix + komutlar[k][0] + "`\t*" + komutlar[k][1] + "*"
 
     await ctx.send(create_msg)
-
 
 @client.command()
 async def puan(ctx, *, arg):
@@ -533,9 +462,9 @@ async def puan(ctx, *, arg):
     log(uname, komut, sunucu, kanaladi)
     movies = imdbarama(arg)
     resultx = "Sevgili " + username + ",  __" + arg + "__" + " için bunlar çıktı:"
-    k = 5
-    if len(movies) > 5:
-        k = 5
+    k = 2
+    if len(movies) > 2:
+        k = 2
     elif len(movies) == 0:
         await ctx.send("Bulamadım bir şey sevgili {}, doğru düzgün yazdığına emin misin?".format(username))
     else:
@@ -545,8 +474,8 @@ async def puan(ctx, *, arg):
     await ctx.send(sonuc)
 
 
-@client.command(aliases=['İmdb'])
-async def imdb(ctx, *, arg):
+@client.command(aliases=['İmdb', 'imdb'])
+async def _imdb(ctx, *, arg):
     komut = "imdb"
     uname = ctx.message.author.name
     sunucu = ctx.message.guild.name
@@ -555,9 +484,9 @@ async def imdb(ctx, *, arg):
     username = ctx.message.author.mention
     movies = imdbarama(arg)
     result = "Sevgili " + username + ",  __" + arg + "__" + " için bunlar çıktı:"
-    k = 5
-    if len(movies) > 5:
-        k = 5
+    k = 2
+    if len(movies) > 2:
+        k = 2
     elif len(movies) == 0:
         await ctx.send("Bulamadım bir şey sevgili {}, doğru düzgün yazdığına emin misin?".format(username))
     else:
@@ -671,7 +600,8 @@ async def filmoner(ctx):
     cevap = "Sevgili " + username + ", sana **" + oneri['title'] + "** filmini öneririm.\n" + linki
     ozgurunonerisi = "Özgür Turhan'ın oyladığı filmere de göz atabilirsin:\nhttps://www.imdb.com/user/ur21033461/ratings"
     await ctx.send(cevap)
-    await ctx.send(ozgurunonerisi)
+    if sunucu == "Kamusal Mizah":
+        await ctx.send(ozgurunonerisi)
 
 
 @client.command()
@@ -702,4 +632,4 @@ async def wiki(ctx, *, arg):
     await ctx.send(cevap)
 
 
-client.run(the_discord_token(anahtar))
+client.run(botToken)
