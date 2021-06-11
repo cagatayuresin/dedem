@@ -27,15 +27,16 @@ Dedem oyunbazdır. Dedem huysuzdur.
 	fikrini beyan eder
 !yt anahtar sözcük
 	youtube'dan 'anahtar sözcük' aramasından ilk sonucun linkini getirir
-	youtube'dan 'anahtar sözcük' ilk sonucun linkini getirir
 !filmöner
 	iyi bir film önerir
 !türöner tür
-	türe yönelik film önerisi alursunuz.
+	türe yönelik film önerisi alırsınız.
 !iq40
 	çok kötü bir film önerir
 !adamasmaca
 	film isimleri üzerinden adamasmaca oyunu
+!yaklaş
+	dedemin aklından tuttuğu sayıyı kaç hamlede bilebilirsin
 !zar
 	bir çift zar atar
 !wiki anahtar sözcük
